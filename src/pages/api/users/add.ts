@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { id, name, email } = req.body;
 
     try {
-        if (!req.body || !id || !name || !email) {
+        if (!req.body || !id) {
             return res.status(400).json({ "error": "id, name or email cannot be empty" });
         }
         await db.user.create({
