@@ -25,4 +25,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export default withMethods([RequestMethods.POST], handler, false)
+export default withMethods([RequestMethods.POST], handler)
