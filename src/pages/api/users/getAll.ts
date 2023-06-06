@@ -13,4 +13,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export default withMethods([RequestMethods.GET], handler, false)
+export default withMethods([RequestMethods.GET], handler)
