@@ -19,10 +19,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 email: email
             },
         })
-        return res.status(200).json(createResponseData("Teacher successfully added!"));
+        return res.status(200).json(createResponseData("User successfully added!"));
     } catch (error) {
         return res.status(500).json({ error: error })
     }
 }
 
-export default withMethods([RequestMethods.POST], handler)
+export default withMethods([RequestMethods.POST], handler, false)
