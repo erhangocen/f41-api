@@ -8,15 +8,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const userId = req.query.userId?.toString();
 
     try {
-        const responseData = await db.user.findUnique({
+        const responseData = await db.user.findMany({
             where: { id: userId }
         });
-        if (responseData != null) {
-            return res.status(200).json(responseData);
-        }
-        if (responseData == null) {
-            return res.status(200).json(null)
-        }
+        return res.status(200).json(responseData);
     } catch (error) {
         return res.status(500).json({ error: error })
     }
