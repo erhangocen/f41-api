@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id } = req.body;
+    const { id, name, email } = req.body;
 
     try {
         if (!req.body || !id) {
@@ -15,8 +15,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await db.user.create({
             data: {
                 id: id,
-                name: `user${id}`,
-                email: ""
+                name: name ?? `user${id}`,
+                email: email ?? ""
             },
         })
         return res.status(200).json(createResponseData("User successfully added!"));
@@ -25,4 +25,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export default withMethods([RequestMethods.POST], handler)
+export default withMethods([RequestMethods.POST], handler, false)
