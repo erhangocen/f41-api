@@ -6,20 +6,22 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id } = req.body;
+    const { id, name, email } = req.body;
 
     try {
         if (!req.body || !id) {
-            return res.status(400).json({ "error": "id cannot be empty" });
+            return res.status(400).json({ "error": "id, cannot be empty" });
         }
-        await db.user.create({
+        await db.user.update({
+            where: {
+                id: id
+            },
             data: {
-                id: id,
-                name: `user${id}`,
-                email: ""
+                name: name,
+                email: email
             },
         })
-        return res.status(200).json(createResponseData("User successfully added!"));
+        return res.status(200).json(createResponseData("User successfully updated!"));
     } catch (error) {
         return res.status(500).json({ error: error })
     }
