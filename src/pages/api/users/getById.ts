@@ -11,7 +11,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const responseData = await db.user.findUnique({
             where: { id: userId }
         });
-        return res.status(200).json(responseData);
+        if (responseData != null) {
+            return res.status(200).json(responseData);
+        }
+        if (responseData == null) {
+            return res.status(200).json(null)
+        }
     } catch (error) {
         return res.status(500).json({ error: error })
     }
