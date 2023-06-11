@@ -12,7 +12,88 @@ datasource db {
 }
 
 model User {
-  id    String @id
-  name  String
-  email String
+  id              String           @id @unique
+  userName        String           @unique
+  fullName        String           @default("")
+  email           String           @default("")
+  phoneNumber     String           @default("")
+  profilePhotoUrl String           @default("")
+  about           String           @default("")
+  Group           Group[]
+  UserGroup       UserGroup[]
+  EventAttendees  EventAttendees[]
+  UserLikeEvents  UserLikeEvents[]
+}
+
+model Category {
+  id    String  @id @unique @default(uuid())
+  name  String  @unique
+  Group Group[]
+}
+
+model Group {
+  id          String      @id @unique @default(uuid())
+  name        String      @unique
+  description String
+  categoryId  String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  owner       User        @relation(fields: [userId], references: [id])
+  createdAt   DateTime    @default(now())
+  userId      String
+  UserGroup   UserGroup[]
+  Event       Event[]
+
+  @@index([categoryId], name: "categoryId")
+  @@index([userId], name: "userId")
+}
+
+model Event {
+  id             String           @id @unique @default(uuid())
+  name           String           @unique
+  description    String
+  groupId        String
+  group          Group            @relation(fields: [groupId], references: [id])
+  createdAt      DateTime         @default(now())
+  eventDate      DateTime
+  eventLocation  String
+  eventLat       Decimal
+  eventLng       Decimal
+  eventPhotoUrl  String
+  eventAttendees EventAttendees[]
+  UserLikeEvents UserLikeEvents[]
+
+  @@index([groupId], name: "groupId")
+}
+
+model EventAttendees {
+  id      String @id @unique @default(uuid())
+  eventId String
+  userId  String
+  event   Event  @relation(fields: [eventId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
+}
+
+model UserLikeEvents {
+  id      String @id @unique @default(uuid())
+  eventId String
+  userId  String
+  event   Event  @relation(fields: [eventId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
+}
+
+model UserGroup {
+  id      String @id @unique @default(uuid())
+  userId  String
+  groupId String
+  user    User   @relation(fields: [userId], references: [id])
+  group   Group  @relation(fields: [groupId], references: [id])
+
+  @@index([userId], name: "userId")
+  @@index([groupId], name: "groupId")
 }

@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id, name, email } = req.body;
+    const { id, userName, fullName, email, phoneNumber, profilePhotoUrl, about   } = req.body;
 
     try {
         if (!req.body || !id) {
@@ -17,8 +17,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 id: id
             },
             data: {
-                name: name,
-                email: email
+                userName: userName,
+                email: email,
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                profilePhotoUrl: profilePhotoUrl,
+                about: about
             },
         })
         return res.status(200).json(createResponseData("User successfully updated!"));
