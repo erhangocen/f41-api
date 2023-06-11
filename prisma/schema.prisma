@@ -19,16 +19,16 @@ model User {
   phoneNumber     String           @default("")
   profilePhotoUrl String           @default("")
   about           String           @default("")
-  Group           Group[]
-  UserGroup       UserGroup[]
-  EventAttendees  EventAttendees[]
-  UserLikeEvents  UserLikeEvents[]
+  groups          Group[]
+  userGroups      UserGroup[]
+  eventAttendees  EventAttendees[]
+  userLikeEvents  UserLikeEvents[]
 }
 
 model Category {
-  id    String  @id @unique @default(uuid())
-  name  String  @unique
-  Group Group[]
+  id     String  @id @unique @default(uuid())
+  name   String  @unique
+  groups Group[]
 }
 
 model Group {
@@ -40,8 +40,8 @@ model Group {
   owner       User        @relation(fields: [userId], references: [id])
   createdAt   DateTime    @default(now())
   userId      String
-  UserGroup   UserGroup[]
-  Event       Event[]
+  userGroups  UserGroup[]
+  events      Event[]
 
   @@index([categoryId], name: "categoryId")
   @@index([userId], name: "userId")
@@ -60,7 +60,7 @@ model Event {
   eventLng       Decimal
   eventPhotoUrl  String
   eventAttendees EventAttendees[]
-  UserLikeEvents UserLikeEvents[]
+  userLikeEvents UserLikeEvents[]
 
   @@index([groupId], name: "groupId")
 }
