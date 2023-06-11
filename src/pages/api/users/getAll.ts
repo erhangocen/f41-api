@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
-        const responseData = await db.user.findMany({ include: { Group: true, EventAttendees: true, UserGroup: true, UserLikeEvents: true } })
+        const responseData = await db.user.findMany({ include: { groups: true, eventAttendees: true, userGroups: true, userLikeEvents: true } })
         return res.status(200).json(responseData);
     } catch (error) {
         return res.status(500).json({ error: error })
