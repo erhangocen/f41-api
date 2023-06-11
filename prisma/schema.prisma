@@ -20,7 +20,7 @@ model User {
   profilePhotoUrl String           @default("")
   about           String           @default("")
   groups          Group[]
-  userGroups      UserGroup[]
+  userGroups      UserGroups[]
   eventAttendees  EventAttendees[]
   userLikeEvents  UserLikeEvents[]
 }
@@ -32,15 +32,15 @@ model Category {
 }
 
 model Group {
-  id          String      @id @unique @default(uuid())
-  name        String      @unique
+  id          String       @id @unique @default(uuid())
+  name        String       @unique
   description String
   categoryId  String
-  category    Category    @relation(fields: [categoryId], references: [id])
-  owner       User        @relation(fields: [userId], references: [id])
-  createdAt   DateTime    @default(now())
+  category    Category     @relation(fields: [categoryId], references: [id])
+  owner       User         @relation(fields: [userId], references: [id])
+  createdAt   DateTime     @default(now())
   userId      String
-  userGroups  UserGroup[]
+  userGroups  UserGroups[]
   events      Event[]
 
   @@index([categoryId], name: "categoryId")
@@ -87,7 +87,7 @@ model UserLikeEvents {
   @@index([userId], name: "userId")
 }
 
-model UserGroup {
+model UserGroups {
   id      String @id @unique @default(uuid())
   userId  String
   groupId String
