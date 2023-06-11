@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id, userName, } = req.body;
+    const { id, userName, email, phoneNumber } = req.body;
 
     try {
         if (!req.body || !id) {
@@ -15,7 +15,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await db.user.create({
             data: {
                 id: id,
-                userName: userName??`user${id}`,
+                userName: userName ?? `user${id}`,
+                email: email ?? "",
+                phoneNumber: phoneNumber ?? ""
             },
         })
         return res.status(200).json(createResponseData("User successfully added!"));
