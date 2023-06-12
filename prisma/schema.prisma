@@ -53,9 +53,10 @@ model Event {
   description    String
   groupId        String
   group          Group            @relation(fields: [groupId], references: [id])
+  cityId         String
+  city           City             @relation(fields: [cityId], references: [id])
   createdAt      DateTime         @default(now())
   eventDate      DateTime
-  eventLocation  String
   eventLat       Decimal
   eventLng       Decimal
   eventPhotoUrl  String
@@ -63,6 +64,7 @@ model Event {
   userLikeEvents UserLikeEvents[]
 
   @@index([groupId], name: "groupId")
+  @@index([cityId], name: "cityId")
 }
 
 model EventAttendees {
@@ -96,4 +98,20 @@ model UserGroups {
 
   @@index([userId], name: "userId")
   @@index([groupId], name: "groupId")
+}
+
+model Country {
+  id   String @id @unique @default(uuid())
+  name String @unique
+  City City[]
+}
+
+model City {
+  id        String  @id @unique @default(uuid())
+  name      String  @unique
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id])
+  Event     Event[]
+
+  @@index([countryId], name: "countryId")
 }
