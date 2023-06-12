@@ -13,7 +13,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ "error": "id, cannot be empty" });
         }
         if (userName) {
-            if (await db.user.findUnique({ where: { userName: userName } })) {
+            var a = await db.user.findUnique({ where: { userName: userName } })
+            if (a != null && a.id != id) {
                 return res.status(400).json({ "error": "user already exists" });
             }
         }
