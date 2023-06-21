@@ -26,9 +26,10 @@ model User {
 }
 
 model Category {
-  id     String  @id @unique @default(uuid())
-  name   String  @unique
-  groups Group[]
+  id       String  @id @unique @default(uuid())
+  name     String  @unique
+  photoUrl String
+  groups   Group[]
 }
 
 model Group {
