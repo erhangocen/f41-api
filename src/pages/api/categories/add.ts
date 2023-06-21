@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 name: name
             },
         })
-        return res.status(200).json(createResponseData("City successfully added!"));
+        return res.status(200).json(createResponseData("Category successfully added!"));
     } catch (error) {
         return res.status(500).json({ error: error })
     }

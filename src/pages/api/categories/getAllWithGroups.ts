@@ -11,6 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
         return res.status(500).json({ error: error })
     }
+
 }
 
 export default withMethods([RequestMethods.GET], handler, false)
