@@ -8,10 +8,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const responseData = await db.user.findMany({
             include: {
-                groups: true,
-                eventAttendees: true,
-                userGroups: true,
-                userLikeEvents: true,
+                groups: { include: { category: true, owner: true } },
+
+                eventAttendees: { include: { event: { include: { group: true, city: true, userLikeEvents: true, eventAttendees: true } } } },
+
+                userGroups: { include: { group: { include: { category: true, owner: true } } } },
+
+                userLikeEvents: { include: { event: { include: { group: true, city: true, userLikeEvents: true, eventAttendees: true } } } },
             }
         })
         return res.status(200).json(responseData);
