@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
-        const responseData = await db.category.findMany({ include: { groups: true }, orderBy: { name: 'asc' } })
+        const responseData = await db.category.findMany({ include: { groups: {include: {category:true, owner:true}} }, orderBy: { name: 'asc' } })
         return res.status(200).json(responseData);
     } catch (error) {
         return res.status(500).json({ error: error })
