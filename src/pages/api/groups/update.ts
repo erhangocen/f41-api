@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { id, name, description, categoryId, iconUrl } = req.body;
 
     try {
-        if (!req.body || !id || !name || !description || !categoryId) {
+        if (!req.body || !id) {
             return res.status(400).json({ "error": "fields cannot be empty" });
         }
         await db.group.update({
