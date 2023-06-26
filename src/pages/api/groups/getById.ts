@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 category: true,
                 owner: true,
                 events: { include: { city: true, userLikeEvents: true, eventAttendees: true } },
-                userGroups: { include: { user: true } },
+                userGroups: true,
             }
         });
         return res.status(200).json(responseData);
