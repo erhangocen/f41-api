@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id, name, description, categoryId } = req.body;
+    const { id, name, description, categoryId, iconUrl } = req.body;
 
     try {
         if (!req.body || !id || !name || !description || !categoryId) {
@@ -18,6 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 name: name,
                 description: description,
                 categoryId: categoryId,
+                iconUrl: iconUrl
             },
         })
         return res.status(200).json(createResponseData("Group successfully updated!"));
