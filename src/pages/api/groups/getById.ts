@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: groupId }, include: {
                 category: true,
                 owner: true,
-                events: { include: { city: true, userLikeEvents: true, eventAttendees: true } },
+                events: { include: { city: { include: { country: true } }, userLikeEvents: true, eventAttendees: true } },
                 userGroups: { include: { user: true } },
             }
         });
