@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const eventId = req.query.groupId?.toString();
 
     try {
-        const responseData = await db.event.findUnique({
+        const responseData = await db.event.findUniqueOrThrow({
             where: { id: eventId }, include: {
                 city: true,
                 eventAttendees: { include: { user: true } },
