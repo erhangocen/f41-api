@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { name, description, eventPhotoUrl, eventDate, eventLat, eventLong, cityId, groupId } = req.body;
 
     try {
-        if (!req.body || !name || !description || !eventPhotoUrl || !eventDate || !eventLat || !eventLong || !cityId || !groupId) {
+        if (!req.body) {
             return res.status(400).json({ "error": "fields cannot be empty" });
         }
         await db.event.create({
