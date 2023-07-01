@@ -8,14 +8,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const groupId = req.query.groupId?.toString();
 
     try {
-        const responseData = await db.event.findMany({
-            where: { groupId: groupId }, include: {
+        const responseData = await db.event.findUniqueOrThrow({
+            where: { id: groupId }, include: {
                 city: true,
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
                 group: { include: { category: true, owner: true } },
             },
-            
+
         });
         return res.status(200).json(responseData);
     } catch (error) {
