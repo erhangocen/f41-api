@@ -9,12 +9,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const responseData = await db.event.findUnique({
-            where: { id: eventId }, include: {
+            where: { id: eventId }/* , include: {
                 city: true,
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
                 group: { include: { category: true, owner: true } },
-            }
+            } */
         });
         return res.status(200).json(responseData);
     } catch (error) {
