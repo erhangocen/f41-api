@@ -61,7 +61,7 @@ model Event {
   eventDate      DateTime
   eventLat       Decimal
   eventLng       Decimal
-  eventPhotoUrl  String
+  eventPhotoUrl  String           @default("")
   eventAttendees EventAttendees[]
   userLikeEvents UserLikeEvents[]
 
