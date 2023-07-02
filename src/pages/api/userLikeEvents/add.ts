@@ -13,13 +13,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!req.body || !userId || !eventId) {
             return res.status(400).json({ "error": "fields cannot be empty" });
         }
-        await db.userLikeEvents.create({
+        var response = await db.userLikeEvents.create({
             data: {
                 userId: userId,
                 eventId: eventId
             },
         })
-        return res.status(200).json(createResponseData("You have been successfully liked!"));
+        return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({ error: error })
     }
