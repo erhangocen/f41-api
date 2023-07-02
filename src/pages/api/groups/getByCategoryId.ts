@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const responseData = await db.group.findMany({
-            where: { id: categoryId }, include: {
+            where: { categoryId: categoryId }, include: {
                 category: true,
                 owner: true,
                 events: {
