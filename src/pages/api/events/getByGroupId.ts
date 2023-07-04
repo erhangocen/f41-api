@@ -8,8 +8,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const groupId = req.query.groupId?.toString();
 
     try {
-        const responseData = await db.event.findUnique({
-            where: { id: groupId }, include: {
+        const responseData = await db.event.findMany({
+            where: { groupId: groupId }, include: {
                 city: true,
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
