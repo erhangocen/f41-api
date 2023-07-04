@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { name, description, eventPhotoUrl, eventDate, eventLat, eventLng, cityId, groupId } = req.body;
+    const { name, description, eventPhotoUrl, eventDate, eventLat, eventLng, cityId, groupId, eventAddress } = req.body;
 
     try {
         if (!req.body || !name || !description || !eventDate || !eventLat || !eventLng || !cityId || !groupId) {
@@ -22,6 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 eventLng: eventLng,
                 cityId: cityId,
                 groupId: groupId,
+                eventAddress: eventAddress
             },
         })
         return res.status(200).json(createResponseData("Event successfully added!"));
