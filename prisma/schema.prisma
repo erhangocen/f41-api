@@ -55,7 +55,7 @@ model Event {
   description    String
   groupId        String
   group          Group            @relation(fields: [groupId], references: [id])
-  cityId         String
+  cityId         String           @default("")
   city           City             @relation(fields: [cityId], references: [id])
   createdAt      DateTime         @default(now())
   eventDate      DateTime
