@@ -6,10 +6,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { id, name, description, eventPhotoUrl, eventDate, eventLat, eventLong, cityId, groupId, eventAddress } = req.body;
+    const { id, name, description, eventPhotoUrl, eventDate, eventLat, eventLng, cityId, groupId, eventAddress } = req.body;
 
     try {
-        if (!req.body || !id || !name || !description || !eventPhotoUrl || !eventDate || !eventLat || !eventLong || !cityId || !groupId) {
+        if (!req.body || !id || !name || !description || !eventDate || !eventLat || !eventLng || !cityId || !groupId) {
             return res.status(400).json({ "error": "fields cannot be empty" });
         }
         await db.event.update({
@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 eventPhotoUrl: eventPhotoUrl,
                 eventDate: eventDate,
                 eventLat: eventLat,
-                eventLng: eventLong,
+                eventLng: eventLng,
                 cityId: cityId,
                 groupId: groupId,
                 eventAddress: eventAddress
