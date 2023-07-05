@@ -12,16 +12,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: groupId }, include: {
                 category: true,
                 owner: true,
-                events: { 
-                    include: { 
-                        group: { include: { category: true} },
+                events: {
+                    include: {
+                        group: { include: { category: true } },
                         city: { include: { country: true } },
-                        userLikeEvents: true, 
-                        eventAttendees: true 
-                    },  
+                        userLikeEvents: true,
+                        eventAttendees: true
+                    },
+                    orderBy: { eventDate: 'asc' }
                 },
                 userGroups: { include: { user: true } },
             }
+        });
+        responseData?.events.sort((a) => {
+            return Date.parse(a.eventDate.toISOString()) - Date.now();
         });
         return res.status(200).json(responseData);
     } catch (error) {
