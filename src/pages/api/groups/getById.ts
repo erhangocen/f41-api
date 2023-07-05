@@ -23,9 +23,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 userGroups: { include: { user: true } },
             }
         });
-        responseData?.events.sort((a, b) => {
-            return (Date.parse(a.eventDate.toISOString()) - Date.now()) - (Date.parse(b.eventDate.toISOString()) - Date.now());
-        });
         return res.status(200).json(responseData);
     } catch (error) {
         return res.status(500).json({ error: error })
