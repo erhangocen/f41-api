@@ -19,7 +19,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         userLikeEvents: true,
                         eventAttendees: true
                     },
-                    orderBy: { eventDate: 'asc' }
                 },
                 userGroups: { include: { user: true } },
             }
