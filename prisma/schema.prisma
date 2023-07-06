@@ -18,7 +18,7 @@ model User {
   email           String           @default("")
   phoneNumber     String           @default("")
   profilePhotoUrl String           @default("")
-  about           String           @default("")
+  about           String           @default("") @db.VarChar(1000)
   groups          Group[]
   userGroups      UserGroups[]
   eventAttendees  EventAttendees[]
@@ -35,7 +35,7 @@ model Category {
 model Group {
   id          String       @id @unique @default(uuid())
   name        String       @unique
-  description String
+  description String       @db.VarChar(1000)
   categoryId  String
   iconUrl     String       @default("")
   category    Category     @relation(fields: [categoryId], references: [id])
@@ -52,7 +52,7 @@ model Group {
 model Event {
   id             String           @id @unique @default(uuid())
   name           String           @unique
-  description    String
+  description    String           @db.VarChar(1000)
   groupId        String
   group          Group            @relation(fields: [groupId], references: [id])
   cityId         String           @default("")
