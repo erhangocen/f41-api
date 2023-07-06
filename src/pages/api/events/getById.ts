@@ -10,10 +10,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const responseData = await db.event.findUnique({
             where: { id: eventId }, include: {
-                city: {include: {country: true}},
+                city: { include: { country: true } },
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
-                group: { include: { category: true, owner: true } },
+                group: {
+                    include: { category: true, owner: true },
+                },
             }
         });
         return res.status(200).json(responseData);
