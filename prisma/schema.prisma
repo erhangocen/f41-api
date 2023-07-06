@@ -23,6 +23,8 @@ model User {
   userGroups      UserGroups[]
   eventAttendees  EventAttendees[]
   userLikeEvents  UserLikeEvents[]
+  followers       Follow[]         @relation("FollowFolloweeId")
+  followees       Follow[]         @relation("FollowFollowerId")
 }
 
 model Category {
@@ -117,4 +119,15 @@ model City {
   Event     Event[]
 
   @@index([countryId], name: "countryId")
+}
+
+model Follow {
+  id         String @id @unique @default(uuid())
+  followerId String
+  followeeId String
+  follower   User   @relation("FollowFollowerId", fields: [followerId], references: [id])
+  followee   User   @relation("FollowFolloweeId", fields: [followeeId], references: [id])
+
+  @@index([followerId], name: "followerId")
+  @@index([followeeId], name: "followeeId")
 }
