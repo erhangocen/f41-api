@@ -13,7 +13,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             include: { category: true, owner: true },
             where: {
                 NOT: {
-                    userId: userId ?? ""
+                    userId: userId ?? "",
+                    userGroups: {
+                        some: {
+                            userId: userId ?? ""
+                        }
+                    }
                 }
             }
         })
