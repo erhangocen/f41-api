@@ -19,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 eventDate: {
                     gt: new Date(Date.now()).toISOString(),
                 },
+                /* katıldığı guruplar */
                 group: {
                     userGroups: {
                         some: {
@@ -26,6 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         }
                     }
                 },
+                /* kendinin olmayan eventler */
                 NOT: {
                     group: {
                         userId: userId ?? "",
