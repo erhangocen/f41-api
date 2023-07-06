@@ -14,11 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             where: {
                 NOT: {
                     userId: userId ?? "",
-                    userGroups: {
-                        some: {
-                            userId: userId ?? ""
-                        }
-                    }
                 }
             }
         })
