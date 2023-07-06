@@ -12,7 +12,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
                 group: { include: { category: true, owner: true } },
-            }
+            },
+            where: {
+                eventDate: {
+                    gt: "2023-07-01T00:00:00.000Z",
+                }
+            },
         });
         return res.status(200).json(responseData);
     } catch (error) {
