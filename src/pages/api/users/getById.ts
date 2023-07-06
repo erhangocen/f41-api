@@ -17,6 +17,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 userGroups: { include: { group: { include: { category: true, owner: true } } } },
 
                 userLikeEvents: { include: { event: { include: { group: { include: { category: true } }, city: true, userLikeEvents: true, eventAttendees: true } } } },
+
+                followees: { include: { followee: true } },
+                followers: { include: { followee: true } },
             }
         });
         return res.status(200).json(responseData);
