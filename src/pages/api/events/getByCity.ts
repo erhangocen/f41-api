@@ -9,11 +9,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const responseData = await db.event.findMany({
-            where: { cityId: cityId }, include: {
+            include: {
                 city: { include: { country: true } },
                 eventAttendees: { include: { user: true } },
                 userLikeEvents: { include: { user: true } },
                 group: { include: { category: true, owner: true } },
+            },
+            where: {
+                cityId: cityId,
+                eventDate: {
+                    gt: new Date(Date.now()).toISOString(),
+                }
             }
         });
         return res.status(200).json(responseData);

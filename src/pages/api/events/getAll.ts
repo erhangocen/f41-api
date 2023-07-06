@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
             where: {
                 eventDate: {
-                    gt: "2023-07-01T00:00:00.000Z",
+                    gt: new Date(Date.now()).toISOString(),
                 }
             },
         });
