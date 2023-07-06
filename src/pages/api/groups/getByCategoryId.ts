@@ -6,10 +6,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const categoryId = req.query.categoryId?.toString();
+    const userId = req.query.userId?.toString();
 
     try {
         const responseData = await db.group.findMany({
-            where: { categoryId: categoryId }, include: {
+            where: { categoryId: categoryId, NOT: {
+                userId: userId ?? "",
+            } }, include: {
                 category: true,
                 owner: true,
                 events: {
