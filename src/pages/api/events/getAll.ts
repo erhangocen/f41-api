@@ -5,6 +5,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
+    const userId = req.query.userId?.toString();
+    const cityId = req.query.cityId?.toString();
+
     try {
         const responseData = await db.event.findMany({
             include: {
@@ -16,6 +19,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             where: {
                 eventDate: {
                     gt: new Date(Date.now()).toISOString(),
+                },
+                NOT: {
+                    OR: [
+                        /* Katıldığımız Gruplardan Olmayacak */
+                        {
+                            group: {
+                                userGroups: {
+                                    some: {
+                                        userId: userId ?? "",
+                                    }
+                                }
+                            }
+                        },
+                        /* Bizim Olmayacak */
+                        {
+                            group: {
+                                userId: userId ?? "",
+                            }
+                        },
+                        /* Şehirdeki gruplardan olmayacak */
+                        {
+                            cityId: cityId
+                        }
+                    ]
+
+
                 }
             },
         });

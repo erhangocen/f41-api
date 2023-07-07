@@ -23,6 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
                 NOT: {
                     OR: [
+                        /* Katıldığımız Gruplardan Olmayacak */
                         {
                             group: {
                                 userGroups: {
@@ -32,6 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                                 }
                             }
                         },
+                        /* Bizim Olmayacak */
                         {
                             group: {
                                 userId: userId ?? "",
