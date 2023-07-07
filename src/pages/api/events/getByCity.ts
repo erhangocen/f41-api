@@ -16,6 +16,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 userLikeEvents: { include: { user: true } },
                 group: { include: { category: true, owner: true } },
             },
+            orderBy: {
+                eventDate: "asc",
+            },
             where: {
                 cityId: cityId,
                 eventDate: {
