@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 userLikeEvents: { include: { event: { include: { group: { include: { category: true } }, city: true, userLikeEvents: true, eventAttendees: true } } } },
 
                 followees: { include: { followee: true } },
-                followers: { include: { followee: true } },
+                followers: { include: { follower: true } },
             }
         });
         return res.status(200).json(responseData);
