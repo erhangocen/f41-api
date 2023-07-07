@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     gt: new Date(Date.now()).toISOString(),
                 },
                 NOT: {
-                    AND: [
+                    OR: [
                         {
                             group: {
                                 userGroups: {
