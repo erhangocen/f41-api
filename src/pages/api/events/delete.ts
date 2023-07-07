@@ -6,14 +6,20 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const name = req.query.name?.toString();
+    const id = req.query.id?.toString();
 
     try {
-        if (!name) {
-            return res.status(400).json({ "error": "name cannot be empty" });
+        if (!id) {
+            return res.status(400).json({ "error": "id cannot be empty" });
         }
+        /* await db.eventAttendees.deleteMany({
+            where: { eventId: id },
+        })
+        await db.userLikeEvents.deleteMany({
+            where: { eventId: id },
+        }) */
         await db.event.delete({
-            where: { name: name },
+            where: { id: id },
         })
         return res.status(200).json(createResponseData("Group successfully deleted!"));
     } catch (error) {
