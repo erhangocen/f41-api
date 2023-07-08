@@ -8,6 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const userId = req.query.userId?.toString();
 
     try {
+        if (!userId) {
+            return res.status(400).json({ "error": "user cannot be empty" });
+        }
         const responseData = await db.group.findMany({
             where: {
                 userGroups: {
