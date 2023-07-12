@@ -2,6 +2,7 @@ import { withMethods } from "@/lib/api-middlewares/with-methods";
 import { db } from "@/lib/db";
 import RequestMethods from "@/lib/request_methods";
 import createResponseData from "@/types/ResponseModel";
+import Group from "@/types/group";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -26,12 +27,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 eventAddress: eventAddress
             },
         })
+        var group:Group | null = await db.group.findUnique({
+            where: {
+                id: groupId
+            }
+        })
         axios.post("https://fcm.googleapis.com/fcm/send", {
-            "to": "/topics/"+groupId,
+            "to": "/topics/"+group?.name,
             "notification": {
-                "body": "Body of Your Notification",
-                "title": "Title of Your Notification",
-                "icon": "ic_launcher"
+                "body": description,
+                "title": group?.name+" has added a new event!",
+                "img_url": eventPhotoUrl,
             }
         }, {headers: {
             "Content-Type": "application/json",
