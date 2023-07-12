@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 id: groupId
             }
         })
-        axios.post("https://fcm.googleapis.com/fcm/send", {
+        await axios.post("https://fcm.googleapis.com/fcm/send", {
             "to": "/topics/"+group?.id,
             "notification": {
                 "body": description,
