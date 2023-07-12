@@ -37,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             "notification": {
                 "body": description,
                 "title": group?.name+" has added a new event!",
-                "img_url": eventPhotoUrl,
+                "image": eventPhotoUrl,
             }
         }, {headers: {
             "Content-Type": "application/json",
