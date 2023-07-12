@@ -33,7 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
         })
         axios.post("https://fcm.googleapis.com/fcm/send", {
-            "to": "/topics/"+group?.name,
+            "to": "/topics/"+group?.id,
             "notification": {
                 "body": description,
                 "title": group?.name+" has added a new event!",
