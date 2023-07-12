@@ -27,10 +27,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
         })
         axios.post("https://fcm.googleapis.com/fcm/send", {
-            "to": "topic/24bb708b-5a90-4038-afed-97d7479fc832",
+            "to": "/topics/"+groupId,
             "notification": {
                 "body": "Body of Your Notification",
-                "title": "Title of Your Notification"
+                "title": "Title of Your Notification",
+                "icon": "ic_launcher"
             }
         }, {headers: {
             "Content-Type": "application/json",
