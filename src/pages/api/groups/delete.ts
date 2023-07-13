@@ -12,6 +12,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!id) {
             return res.status(400).json({ "error": "id cannot be empty" });
         }
+
+        var a = await db.event.findMany({
+            where: {
+                groupId: id
+            }
+        })
+        for (let i = 0; i < a.length; i++) {
+            await db.eventAttendees.deleteMany({
+                where: { eventId: a[i].id },
+            })
+            await db.userLikeEvents.deleteMany({
+                where: { eventId: a[i].id },
+            })
+        }
+        await db.event.deleteMany({
+            where: { groupId: id },
+        }),
+        await db.userGroups.deleteMany({
+            where: { groupId: id },
+        })
         await db.group.delete({
             where: { id: id },
         })
