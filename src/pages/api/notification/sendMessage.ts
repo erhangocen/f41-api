@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 "title": title,
             },
             "data": {
-                "route": "message",
+                "route": "chat",
                 "id": id
             }
         }, {
