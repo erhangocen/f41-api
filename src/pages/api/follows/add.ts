@@ -19,16 +19,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 followeeId: followeeId,
                 followerId: followerId,
             },
-        })
-        var follower = await db.user.findUnique({
-            where: {
-                id: followerId
+            include: {
+                follower: true
             }
         })
         axios.post("https://fcm.googleapis.com/fcm/send", {
             "to": "/topics/" + followeeId,
             "notification": {
-                "body": follower?.fullName + " has followed you!",
+                "body": response.follower?.fullName + " has followed you!",
                 "title": "You Have a New Follower!",
             }
         }, {
