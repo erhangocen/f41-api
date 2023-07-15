@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ "error": "fields cannot be empty" });
         }
         await axios.post("https://fcm.googleapis.com/fcm/send", {
-            "to": "/topics/" + id,
+            "to": "/topics/" + topic,
             "notification": {
                 "body": body,
                 "title": title,
