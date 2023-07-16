@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const responseData = await db.event.findMany({
-            take: userId != null || cityId != null ? 10 : undefined,
+            take: userId != null || cityId != null ? 5 : undefined,
             include: {
                 city: { include: { country: true } },
                 eventAttendees: { include: { user: true } },
