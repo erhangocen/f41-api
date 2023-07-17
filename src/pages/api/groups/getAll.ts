@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const responseData = await db.group.findMany({
-            orderBy: { name: 'asc' },
+            orderBy: { userGroups: { _count: "desc" } },
             include: { category: true, owner: true },
             where: {
                 NOT: {
